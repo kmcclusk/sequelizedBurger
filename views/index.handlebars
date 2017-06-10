@@ -1,0 +1,63 @@
+<div class="jumbotron">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Bob%27s_Burgers_logo.png" alt="bob's burgers">
+  <h1>Try the burger of the day</h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="devour">
+        <ul>
+          {{#each burgers}}
+            {{#unless this.devour}}
+              <li>
+                {{this.burger_name}}
+                <br>
+                {{this.episode}}
+                <form action="/{{this.id}}?_method=PUT" method="POST">
+                  <input type="hidden" name="devoured" value="false">
+                  <button class="burgerBtn btn btn-success" type="submit">DEVOUR</button>
+                </form>
+
+              </li>
+            {{/unless}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+
+  <div class="col-md-6">
+    <div class="devoured">
+      <ul>
+        {{#each burgers}}
+          {{#if this.devour}}
+            <li>
+              {{this.burger_name}}
+              {{this.episode}}
+
+              <form action="/{{this.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="devoured" value="false">
+              </form>
+
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container addNew">
+  <h2>New Burger of the Day</h2>
+  <form class="create-update-form" action="/" method="POST">
+
+    <div class="form-group">
+      <input type="text" id="burgerInput" placeholder="Burger Name">
+      <input type="text" id="episodeInput" placeholder="Episode">
+    </div>
+
+    <button id="submitBurger" type="submit" class="btn btn-danger sharp">ADD BURGER</button>
+  </form>
+     
+</div>
